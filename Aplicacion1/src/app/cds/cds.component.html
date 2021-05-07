@@ -1,0 +1,128 @@
+<!--<div class="container" id="advanced-search-form">
+    <ng-container *ngIf="!crearCds else ">
+      <button type="button" class="btn btn-dark btn-sm" (click)="verCds()">Crear Clientes</button>
+     
+      <table datatable [dtOptions]="dtOptions " class="row-border hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Codigo Titulo</th>
+                <th>Número de Cd</th>
+                <th>Condición</th>
+                <th>Ubicación</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of lstCds">
+                <td>{{ item.id }}</td>
+                <td>{{ item.codigoTitulo }}</td>
+                <td>{{ item.noCd }}</td>
+                <td>{{ item.condicion }}</td>
+                <td>{{ item.ubicacion }}</td>
+                <td>{{ item.Estado? 'Activo': 'Inactivo' }}</td>
+                <td>
+
+                    <button type="button" class="btn btn-dark btn-sm" (click)="editCds(item)">Editar</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" style="margin-left: 1%;"
+                        (click)="desactivarCds(item)">Deshabilitar</button>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+      
+    </ng-container>
+
+</div>
+-->
+<div class="container" id="advanced-search-form">
+    <ng-container *ngIf="!crearCds; else formCds">
+        <button type="button" class="btn btn-dark btn-sm" (click)="verCds()">Crear Cd</button>
+
+        <table datatable [dtOptions]="dtOptions" class="row-border hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Codigo Titulo</th>
+                    <th>Número de Cd</th>
+                    <th>Condición</th>
+                    <th>Ubicación</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of lstCds">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.codigoTitulo }}</td>
+                    <td>{{ item.noCd }}</td>
+                    <td>{{ item.condicion }}</td>
+                    <td>{{ item.ubicacion }}</td>
+                    <td>{{ item.estado? 'Activo' : 'Inactivo' }}</td> 
+                    <td>
+                        <button type="button" class="btn btn-dark btn-sm" (click)="editCds(item)">Editar</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm" style="margin-left: 1%;"
+                            (click)="desactivarCds(item)">Deshabilitar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+
+    <ng-template #formCds>
+        <button type="button" class="btn btn-dark btn-sm" (click)="crearCds = false">Ver Cds</button>
+        <form [formGroup]="formulario">
+
+            <div class="form-group row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Codigo Titulo</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" formControlName="CodigoTitulo" 
+                    [ngClass]="{'is-invalid': submitted && f.CodigoTitulo.errors}" placeholder="Codigo Titulo">
+                    <div *ngIf="submitted && f.CodigoTitulo.errors" class="invalid-feedback">
+                        <div *ngIf="f.CodigoTitulo.errors.required">El Codigo del Titulo es requerido</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Número de Cds</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" formControlName="NoCd" 
+                    [ngClass]="{'is-invalid': submitted && f.NoCd.errors}" placeholder="Número de Cds">
+                    <div *ngIf="submitted && f.NoCd.errors" class="invalid-feedback">
+                        <div *ngIf="f.NoCd.errors.required">El Número de Cds es requerido</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Condición</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" formControlName="Condicion"
+                        [ngClass]="{'is-invalid': submitted && f.Condicion.errors}" placeholder="Condición">
+                    <div *ngIf="submitted && f.Condicion.errors" class="invalid-feedback">
+                        <div *ngIf="f.Condicion.errors.required">La Condición es requerida</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Ubicación</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" formControlName="Ubicacion" 
+                    [ngClass]="{'is-invalid': submitted && f.Ubicacion.errors}" placeholder="Ubicación">
+                    <div *ngIf="submitted && f.Ubicacion.errors" class="invalid-feedback">
+                        <div *ngIf="f.Ubicacion.errors.required">La Ubicación es requerida</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassworbtnEditard" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <button type="button" *ngIf="!btnEditar" (click)="AddCds()" class="btn btn-secondary">Crear
+                    </button>
+                    <button type="button" *ngIf="btnEditar" (click)="updateCds()" style="margin-left: 2%;"
+                        class="btn btn-secondary">Editar</button>
+                    <button type="button" (click)="borrarFormularioCds()" class="btn btn-secondary"
+                        style="margin-left: 2%;">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+</div>
